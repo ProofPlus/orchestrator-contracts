@@ -2,16 +2,12 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Script.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
+import {ProofPlusToken} from "contracts/ProofPlusToken.sol";
 
-contract ProofPlusToken is ERC20Permit {
-    constructor(uint256 initialSupply) ERC20Permit("Proof Plus Token") ERC20("Proof Plus Token", "PPT") {
-        _mint(msg.sender, initialSupply);
-    }
-}
+import {console} from "forge-std/console.sol";
 
 contract DeployToken is Script {
-    uint256 public initialSupply = 1000000 * 10**18; // 1 million tokens
+    uint256 public initialSupply = 1000000 * 10 ** 18; // 1 million tokens
 
     function run() external {
         vm.startBroadcast();
@@ -20,6 +16,7 @@ contract DeployToken is Script {
 
         vm.stopBroadcast();
 
-        console.log("Proof Plus Token deployed at:", address(token));
+        console.logString("Proof Plus Token deployed at:");
+        console.logAddress(address(token));
     }
 }
